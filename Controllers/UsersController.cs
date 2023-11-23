@@ -118,6 +118,22 @@ namespace AspIdentity.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            var user = await _userManager.FindByIdAsync(Id);
+
+            if(user != null)
+            {
+                var result = await _userManager.DeleteAsync(user);
+
+                return RedirectToAction("Index");
+            }
+
+           return RedirectToAction("Index");
+        }
+
+
 
 
 

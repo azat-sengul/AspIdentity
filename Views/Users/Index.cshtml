@@ -24,7 +24,10 @@
                     <td>@user.Email</td>
                     <td>
                         <a class="btn btn-primary" asp-action="Edit" asp-route-id="@user.Id" >Edit</a>
-                        <a class="btn btn-danger" href="#" role="button">Delete</a>
+                        <form asp-action="Delete" method="post" onsubmit="return confirm('@user.UserName adlı kullanıcıyı silmek istediğinize misiniz?')" style="display: inline-block;" >
+                            <input type="hidden" name="Id" value="@user.Id" >
+                            <button type="submit" class="btn btn-danger" >Delete</button>
+                        </form>
                     </td>
                 </tr>
 
