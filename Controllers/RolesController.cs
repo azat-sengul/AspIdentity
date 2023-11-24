@@ -5,7 +5,7 @@ namespace AspIdentity.Controllers
 {
     public class RolesController:Controller
     {
-                //Sayfa içinde UserManager'ı kullanmak için gerekli injection işlemi
+        //Sayfa içinde UserRole'ı kullanmak için gerekli injection işlemi
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public RolesController(RoleManager<IdentityRole> roleManager)
@@ -15,7 +15,7 @@ namespace AspIdentity.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(_roleManager.Roles);
         }
 
 
