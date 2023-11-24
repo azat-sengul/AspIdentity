@@ -125,18 +125,11 @@ namespace AspIdentity.Controllers
 
             if(user != null)
             {
-                var result = await _userManager.DeleteAsync(user);
-
-                return RedirectToAction("Index");
+                await _userManager.DeleteAsync(user);
             }
 
            return RedirectToAction("Index");
         }
-
-
-
-
-
 
 
     }
