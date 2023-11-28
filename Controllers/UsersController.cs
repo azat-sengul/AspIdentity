@@ -112,6 +112,16 @@ namespace AspIdentity.Controllers
                     // Update metodu çalıştı mı kontrol edelim
                     if(result.Succeeded)
                     {
+                        // Var olan rolleri silme işlemi
+                        await _userManager.RemoveFromRolesAsync(user, await _userManager.GetRolesAsync(user));
+
+                        // modelden gönderilen rolleri ekleme işlemi
+
+                        if(model.SelectedRoles != null)
+                        {
+                            await _userManager.AddToRolesAsync(user, model.SelectedRoles);
+                        }
+
                         return RedirectToAction("Index");
                     }
 
