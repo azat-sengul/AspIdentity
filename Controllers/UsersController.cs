@@ -2,6 +2,7 @@ using System.Security.AccessControl;
 using AspIdentity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspIdentity.Controllers
 {
@@ -10,9 +11,14 @@ namespace AspIdentity.Controllers
         //Sayfa içinde UserManager'ı kullanmak için gerekli injection işlemi
         private UserManager<IdentityUser> _userManager;
 
-        public UsersController(UserManager<IdentityUser> userManager)
+        //Sayfa içinde RoleManager'ı kullanmak için gerekli injection işlemi
+
+        private RoleManager<IdentityRole> _roleManager;
+
+        public UsersController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // UserManager ile gelen User'ları View'de görüntüleme işlemi
@@ -60,11 +66,14 @@ namespace AspIdentity.Controllers
 
             if(user != null)
             {
+                // Veri tabanına kayıtlı tüm rolleri viewbag ile sayfaya taşıma
+                ViewBag.Roles = await _roleManager.Roles.Select(i => i.Name).ToListAsync();
 
                 return View(new EditViewModel{
                     Id = user.Id,
                     UserName = user.UserName,
-                    Email = user.Email
+                    Email = user.Email,
+                    SelectedRoles = await _userManager.GetRolesAsync(user) // user'a ilişkin seçilmiş rolü sayfaya çağırma
                 });
 
             }

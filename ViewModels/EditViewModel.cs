@@ -18,5 +18,8 @@ namespace AspIdentity.Models
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage="Paralolar eşleşmiyor")]
         public string? ConfirmPassword { get; set; } 
+
+       // Rolleri temsil edecek liste aşağıdaki gibi eklenebilir
+        public IList<string>? SelectedRoles { get; set; } //Rol seçilmemesi durumuna karşı nullable olmalı
    } 
 }

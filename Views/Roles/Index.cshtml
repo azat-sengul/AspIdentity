@@ -23,18 +23,18 @@
 
             @foreach(var role in Model)
             {
-
                 <tr class="">
                     <td>@role.Id</td>
                     <td>@role.Name</td>
                     <td>User list</td>
                     <td>
-                        <a href="" class="btn btn-primary" >Edit</a>
-                        <a href="" class="btn btn-danger" >Delete</a>
+                        <form action="" method="post">
+                            <a href="" class="btn btn-primary" >Edit</a>
+                            <button type="submit" class="btn btn-danger" >Delete</button>
+                        </form>
                     </td>
                     
                 </tr>
-
             }
 
         </tbody>
