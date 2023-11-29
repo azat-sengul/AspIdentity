@@ -1,3 +1,5 @@
+@inject UserManager<IdentityUser> UserManager  
+
 @model IEnumerable<IdentityRole>
 
 <a class="btn btn-primary" asp-controller="Roles" asp-action="Create" >Create Role</a>
@@ -26,7 +28,17 @@
                 <tr class="">
                     <td>@role.Id</td>
                     <td>@role.Name</td>
-                    <td>User list</td>
+                    <td>
+                        @if (UserManager.GetUsersInRoleAsync(role.Name).Result.Count() > 0)
+                        {
+                            var usersInRole = string.Join(", ", UserManager.GetUsersInRoleAsync(role.Name).Result.Select(u => u.UserName));
+                            <span>@usersInRole</span>
+                        }
+                        else
+                        {
+                            <span>No users in this role</span>
+                        }
+                    </td>
                     <td>
                         <form action="" method="post">
                             <a href="" class="btn btn-primary" >Edit</a>
