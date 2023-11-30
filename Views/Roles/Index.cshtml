@@ -7,7 +7,7 @@
 <hr>
 
 <div class="table-responsive">
-    <table class="table table-primary">
+    <table class="table">
         <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -28,15 +28,22 @@
                 <tr class="">
                     <td>@role.Id</td>
                     <td>@role.Name</td>
-                    <td>
-                        @if (UserManager.GetUsersInRoleAsync(role.Name).Result.Count() > 0)
-                        {
-                            var usersInRole = string.Join(", ", UserManager.GetUsersInRoleAsync(role.Name).Result.Select(u => u.UserName));
-                            <span>@usersInRole</span>
-                        }
-                        else
-                        {
-                            <span>No users in this role</span>
+                    <td>        
+                        @{
+                            var usersInRole = await UserManager.GetUsersInRoleAsync(role.Name);
+                            if (usersInRole.Count() > 0)
+                            {
+                                <ul >
+                                    @foreach (var user in usersInRole)
+                                    {
+                                        <li style="list-style-type: square;">@user.UserName</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <span>No users in this role</span>
+                            }
                         }
                     </td>
                     <td>
