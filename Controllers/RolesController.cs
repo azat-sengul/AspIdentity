@@ -47,8 +47,59 @@ namespace AspIdentity.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> Edit(string Id)
+        {   
+            var role = await _roleManager.FindByIdAsync(Id);
 
+            if(Id != null)
+            {
+                return View(role);
+            }
 
+            return RedirectToAction("Index");
+        } 
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string Id, IdentityRole model)
+        {
+            if(ModelState.IsValid)
+            {
+                var role = await _roleManager.FindByIdAsync(model.Id);
+
+                if( role != null)
+                {
+                    role.Name = model.Name;
+                    var result = await _roleManager.UpdateAsync(role);
+                    if (result.Succeeded)
+                    {                    
+                        return RedirectToAction("Index");         
+                    }
+                    foreach (var err in result.Errors)
+                    {
+                        ModelState.AddModelError("", err.Description);
+                    }
+                }   
+            }
+             return View(model);   
+        }  
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            if (Id != null)
+            {
+                var record = await _roleManager.FindByIdAsync(Id);
+
+                if(record != null)
+                {
+                    await _roleManager.DeleteAsync(record);
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        } 
 
     }
 }

@@ -47,8 +47,9 @@
                         }
                     </td>
                     <td>
-                        <form action="" method="post">
-                            <a href="" class="btn btn-primary" >Edit</a>
+                        <a asp-action="Edit" asp-route-id="@role.Id" class="btn btn-primary" >Edit</a>
+                        <form asp-action="Delete" method="post" onsubmit="return confirm('@role.Name adlı rolü silmek istediğinize misiniz?')" style="display: inline-block;" >
+                            <input type="hidden" name="Id" value="@role.Id" >
                             <button type="submit" class="btn btn-danger" >Delete</button>
                         </form>
                     </td>
