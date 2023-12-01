@@ -11,6 +11,14 @@ builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlite(buil
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
 
+//Access Attempts Configuration Start
+builder.Services.Configure<IdentityOptions>(options =>{
+
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); 
+    options.Lockout.MaxFailedAccessAttempts = 5; 
+
+}); //Access Attempts Configuration End
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
