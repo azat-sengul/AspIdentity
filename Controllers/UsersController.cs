@@ -1,11 +1,13 @@
 using System.Security.AccessControl;
 using AspIdentity.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspIdentity.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class UsersController:Controller
     {
         //Sayfa içinde UserManager'ı kullanmak için gerekli injection işlemi
@@ -149,7 +151,6 @@ namespace AspIdentity.Controllers
 
            return RedirectToAction("Index");
         }
-
 
     }
 }

@@ -79,5 +79,12 @@ namespace AspIdentity.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> Logout()
+        {   
+            await _signManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+
+        }
+
     }
 }

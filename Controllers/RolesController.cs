@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspIdentity.Controllers
 {
+     [Authorize(Roles ="Admin")]
     public class RolesController:Controller
     {
         //Sayfa içinde UserRole'ı kullanmak için gerekli injection işlemi
